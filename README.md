@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧠 ResearchPilot
+# ResearchPilot
 **Deep Research AI Agent & Autonomous Operating System**
 
 [![React](https://img.shields.io/badge/React-18-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -387,55 +387,6 @@ Navigate to `http://localhost:5173`
 
 ---
 
-## 17. TEAM CONTRIBUTIONS
-
-| Member | Role | Key Contributions |
-|--------|------|-------------------|
-| **Member 1** | AI & Search Architect | Configured Qdrant, built RAG Pipeline, developed System Prompts. |
-| **Member 2** | Backend Engineer | Designed MongoDB schemas, Express Controllers, JWT Auth, API routes. |
-| **Member 3** | Frontend Architect | Built React UI, Tailwind styling, React Query integrations. |
-| **Member 4** | Integration Engineer | Integrated Groq API, PDF parsing, built complex Markdown rendering. |
-
----
-
-## 18. FUTURE ROADMAP
-
-* **V2 (Multimodal Research):** Enable the AI to parse, "see", and retrieve statistical charts and graphs from PDFs.
-* **V3 (Knowledge Graphs):** Implement GraphRAG (Neo4j) to map complex entity relationships (e.g., Gene A -> inhibits -> Protein B) rather than just text similarity.
-* **V4 (Team Collaboration):** WebSockets for real-time multiplayer research spaces.
-
----
-
-## 19. CHALLENGES FACED
-
-* **RAG Context Window:** Passing 50 PDFs to an LLM crashes it. We solved this by implementing strict token chunking and retrieving only the top 5 chunks.
-* **PDF Parsing:** Academic PDFs have complex multi-column layouts. Ensuring clean text extraction for the embedding model required careful parser configuration.
-* **Hallucination Prevention:** The LLM constantly wanted to answer outside the scope of the PDFs. We solved this via strict Negative Constraints in the Agent's System Prompt.
-
----
-
-## 20. LEARNINGS
-
-* **System Design:** Polyglot persistence (using the right DB for the right job) is critical. MongoDB fails at vector math; Qdrant is essential.
-* **AI Engineering:** A smaller, highly-prompted model (8B) with excellent RAG context outperforms a massive unprompted model (70B).
-
----
-
-## 21. CONCLUSION
-
-ResearchPilot represents a paradigm shift in academic research. By combining the speed of the Groq LPU, the accuracy of Qdrant vector search, and the reasoning power of LLaMA 3.1, this Operating System successfully eliminates information overload, allowing researchers to focus on discovery rather than data management.
-
----
-
-## 22. VIVA QUICK REFERENCE
-
-* **What is RAG?** Retrieval-Augmented Generation. We search the DB for exact paragraphs and feed them to the LLM to prevent hallucinations.
-* **Why Qdrant?** It's a Rust-based Vector DB. Standard SQL/NoSQL databases cannot efficiently calculate the angle (similarity) between 384-dimensional arrays.
-* **Why MongoDB?** Academic metadata is highly variable (some papers lack DOIs). NoSQL handles unstructured JSON seamlessly.
-* **Why Groq?** LPUs (Language Processing Units) generate tokens exponentially faster than traditional GPUs, providing zero-latency chat.
-* **Why LLaMA 3.1 8B?** It is an open-source model that provides perfect reasoning for context-synthesis tasks without the high cost of massive proprietary models.
-* **What are Embeddings?** Mathematical representations of semantic meaning. Words with similar meanings are converted into vectors that point in similar directions.
-* **What is Semantic Search?** Searching by *meaning* (Cosine Similarity) rather than exact keyword matches.
 
 ---
 <div align="center">
