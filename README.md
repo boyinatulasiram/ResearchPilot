@@ -17,6 +17,58 @@ ResearchPilot is a premium, enterprise-grade Research Operating System designed 
 
 ## 🧠 AI Architecture & RAG Workflow
 
+```mermaid
+graph TD
+    %% Define Styles
+    classDef user fill:#1f2937,stroke:#111827,stroke-width:2px,color:#fff,rx:10px,ry:10px;
+    classDef frontend fill:#d97706,stroke:#b45309,stroke-width:2px,color:#fff,rx:10px,ry:10px;
+    classDef backend fill:#059669,stroke:#047857,stroke-width:2px,color:#fff,rx:10px,ry:10px;
+    classDef database fill:#4f46e5,stroke:#4338ca,stroke-width:2px,color:#fff,rx:10px,ry:10px;
+    classDef ai fill:#be123c,stroke:#9f1239,stroke-width:2px,color:#fff,rx:10px,ry:10px;
+
+    %% Nodes
+    User([Researcher]):::user
+    UI[React Dashboard]:::frontend
+    
+    API[Express.js Backend]:::backend
+    Mongo[(MongoDB Metadata)]:::database
+    
+    subgraph Data_Ingestion [Data Ingestion]
+        Parser[PDF Parser & Chunker]:::backend
+        Embed[all-MiniLM-L6-v2 Model]:::ai
+        Qdrant[(Qdrant Vector DB)]:::database
+    end
+    
+    subgraph Agentic_Workflow [Agentic Workflow]
+        Agent[Agent Orchestrator]:::ai
+        RAG[Vector Retrieval]:::backend
+        LLM{LLaMA 3.1 8B}:::ai
+    end
+    
+    %% Flows
+    User -- Uploads PDF / Queries --> UI
+    UI -- REST API --> API
+    
+    %% Ingestion Flow
+    API -- 1. Save Meta --> Mongo
+    API -- 2. Send Text --> Parser
+    Parser -- 3. Send Chunks --> Embed
+    Embed -- 4. Generate Vectors --> Qdrant
+    
+    %% Query Flow
+    API -- 5. Trigger Agent --> Agent
+    Agent -- 6. Embed Query --> Embed
+    Agent -- 7. Start Search --> RAG
+    RAG -- 8. Cosine Similarity --> Qdrant
+    Qdrant -- 9. Top-K Context --> RAG
+    RAG -- 10. Build Prompt --> Agent
+    
+    %% Generation
+    Agent -- 11. Strict Prompt + Context --> LLM
+    LLM -- 12. Cited Output --> API
+    API -- 13. JSON Response --> UI
+```
+
 ResearchPilot utilizes a sophisticated hybrid AI architecture combining local embedding processing with cloud-based LLM inference.
 
 ### The RAG Workflow
